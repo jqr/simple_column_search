@@ -1,9 +1,8 @@
 CHANGELOG
 init.rb
-lib/has_one_autocreate.rb
+lib/simple_column_search.rb
 Manifest
 Rakefile
 README.rdoc
-spec/has_one_autocreate_spec.rb
 spec/models.rb
 spec/spec_helper.rb
