@@ -1,0 +1,1 @@
+# Nothing required, Rails will find the file when it's included into a model.

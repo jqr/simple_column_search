@@ -1,0 +1,32 @@
+= Simple Column Search
+
+Quick and dirty multi column LIKE searches.
+
+Adds a Model.search('term1 term2') method that searches across SIMPLE_COLUMN_SEARCH columns using LIKE and a wildcard end.
+
+
+== Examples
+
+  class User
+    SIMPLE_COLUMN_SEARCH = [:email, :name]
+    include SimpleColumnSearch
+  end
+ 
+  User.search('Firsty')
+  User.search('fir')
+  
+
+== Install
+
+As a Rails plugin.
+
+  ./script/plugin install git://github.com/jqr/simple_column_search.git
+
+Prefer gems?
+
+  gem sources -a http://gems.github.com
+  gem install jqr-simple_column_search
+
+
+Homepage:: http://github.com/jqr/simple_column_search/tree/master  
+License:: Copyright (c) 2008 Elijah Miller <mailto:elijah.miller@gmail.com>, released under the MIT license.
