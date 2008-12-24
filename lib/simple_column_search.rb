@@ -13,15 +13,17 @@ require 'activerecord'
 #  
 #   User.search('Firsty')
 #   User.search('Firsty Lasty')
-module SimpleColumnSearch
-  def self.included(base)
-    base.send :named_scope, :search, lambda { |terms|
+
+class ActiveRecord::Base
+  def self.simple_column_search(*columns)
+    named_scope :search, lambda { |terms|
       conditions = terms.split.inject(nil) do |acc, term|
         pattern = term + '%'
-        base.send(:merge_conditions, acc, [base::SIMPLE_COLUMN_SEARCH.collect { |column| "#{base.table_name}.#{column} LIKE :pattern" }.join(' OR '), { :pattern => pattern }])
+        merge_conditions  acc, [columns.collect { |column| "#{table_name}.#{column} LIKE :pattern" }.join(' OR '), { :pattern => pattern }]
       end
     
       { :conditions => conditions }
     }
   end
+  
 end

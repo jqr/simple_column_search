@@ -8,8 +8,7 @@ Adds a Model.search('term1 term2') method that searches across SIMPLE_COLUMN_SEA
 == Examples
 
   class User
-    SIMPLE_COLUMN_SEARCH = [:email, :name]
-    include SimpleColumnSearch
+    simple_column_search :email, :name
   end
  
   User.search('Firsty')
