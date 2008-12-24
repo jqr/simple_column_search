@@ -7,8 +7,7 @@ require 'activerecord'
 # Usage:
 #   
 #   class User
-#     SEARCHABLE_COLUMNS = %w(login first_name last_name)
-#     include SearchColumns
+#     simple_column_search :email, :name
 #   end
 #  
 #   User.search('Firsty')
