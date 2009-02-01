@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'activerecord'
 
-class ActiveRecord::Base
+module SimpleColumnSearch
   # Adds a Model.search('term1 term2') method that searches across SEARCH_COLUMNS
   # for ANDed TERMS ORed across columns.
   #   
@@ -14,7 +14,7 @@ class ActiveRecord::Base
   #  User.search('elijah miller')
   #    # => anyone with first or last name elijah AND
   #    #    anyone with first or last name miller
-  def self.simple_column_search(*columns)
+  def simple_column_search(*columns)
     named_scope :search, lambda { |terms|
       conditions = terms.split.inject(nil) do |acc, term|
         pattern = term + '%'
