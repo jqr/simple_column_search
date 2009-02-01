@@ -14,7 +14,10 @@ module SimpleColumnSearch
   #  User.search('elijah miller')
   #    # => anyone with first or last name elijah AND
   #    #    anyone with first or last name miller
-  def simple_column_search(*columns)
+  def simple_column_search(*args)
+    options = args.extract_options!
+    columns = args
+    
     named_scope :search, lambda { |terms|
       conditions = terms.split.inject(nil) do |acc, term|
         pattern = '%' + term + '%'
