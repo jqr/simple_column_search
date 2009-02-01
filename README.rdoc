@@ -1,20 +1,27 @@
 = Simple Column Search
 
-Quick and dirty multi column LIKE searches. Handles partial matches and multiple ANDed terms.
+Quick and dirty multi column LIKE searches. Great for prototyping auto-completers as it handles partial matches and adding search terms refines the results.
 
 Running lots of queries or have a large data set? You should probably upgrade to a real search back-end already!
 
 == Examples
 
+Setup.
+
   class User
     simple_column_search :first_name, :last_name
   end
  
-  User.search('elijah')          # => anyone with first or last name elijah
-  User.search('miller')          # => anyone with first or last name miller
-  User.search('elijah miller')
-    # => anyone with first or last name elijah AND
-    #    anyone with first or last name miller
+Search for a single value across all searched columns.
+
+  User.search('eli')             # => anyone with first or last name starting with eli
+  User.search('miller')          # => anyone with first or last name starting with miller
+  
+Refine the search by adding another search term.
+
+  User.search('eli miller')
+    # => anyone with first or last name starting with eli AND
+    #    anyone with first or last name starting with miller
 
 == Install
 
