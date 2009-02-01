@@ -17,7 +17,7 @@ module SimpleColumnSearch
   def simple_column_search(*columns)
     named_scope :search, lambda { |terms|
       conditions = terms.split.inject(nil) do |acc, term|
-        pattern = term + '%'
+        pattern = '%' + term + '%'
         merge_conditions  acc, [columns.collect { |column| "#{table_name}.#{column} LIKE :pattern" }.join(' OR '), { :pattern => pattern }]
       end
     
