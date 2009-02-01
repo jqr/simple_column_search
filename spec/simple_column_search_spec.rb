@@ -11,8 +11,17 @@ describe SimpleColumnSearch do
     
     @users = [@jqr, @iggzero, @mogis, @shakewell]
   end
-    
-  describe "search" do
+  describe "single column search" do
+    it "should find someone by first name" do
+      Person.search_first_name('Eli').should == [@jqr]
+    end
+
+    it "should not find someone by last name" do
+      Person.search_first_name('Miller').should == []
+    end
+  end
+  
+  describe "multi column search" do
     it "should find someone by first name" do
       Person.search('Eli').should == [@jqr]
     end

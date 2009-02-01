@@ -18,7 +18,9 @@ module SimpleColumnSearch
     options = args.extract_options!
     columns = args
     
-    named_scope :search, lambda { |terms|
+    options[:name] ||= 'search'
+    
+    named_scope options[:name], lambda { |terms|
       conditions = terms.split.inject(nil) do |acc, term|
         pattern = '%' + term + '%'
         merge_conditions  acc, [columns.collect { |column| "#{table_name}.#{column} LIKE :pattern" }.join(' OR '), { :pattern => pattern }]
