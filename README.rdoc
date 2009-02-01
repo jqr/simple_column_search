@@ -6,7 +6,7 @@ Running lots of queries or have a large data set? You should probably upgrade to
 
 == Examples
 
-Setup.
+Add a search method to your model by calling simple_column_search with the fields you want to search.
 
   class User
     simple_column_search :first_name, :last_name
