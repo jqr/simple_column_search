@@ -17,12 +17,25 @@ module SimpleColumnSearch
   def simple_column_search(*args)
     options = args.extract_options!
     columns = args
-    
+
+    options[:match] ||= :start
     options[:name] ||= 'search'
     
     named_scope options[:name], lambda { |terms|
       conditions = terms.split.inject(nil) do |acc, term|
-        pattern = '%' + term + '%'
+        pattern = 
+          case(options[:match])
+          when :exact
+            term
+          when :start
+            term + '%'
+          when :middle
+            '%' + term + '%'
+          when :end
+            '%' + term
+          else
+            raise "Unexpected match type: #{options[:match]}"
+          end
         merge_conditions  acc, [columns.collect { |column| "#{table_name}.#{column} LIKE :pattern" }.join(' OR '), { :pattern => pattern }]
       end
     

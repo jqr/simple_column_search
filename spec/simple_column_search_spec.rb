@@ -11,16 +11,97 @@ describe SimpleColumnSearch do
     
     @users = [@jqr, @iggzero, @mogis, @shakewell]
   end
-  describe "single column search" do
-    it "should find someone by first name" do
-      Person.search_first_name('Eli').should == [@jqr]
+
+  describe "single column search default match" do
+    it "should find someone by exact first name" do
+      Person.search_first_name_default_match('Elijah').should == [@jqr]
     end
 
-    it "should not find someone by last name" do
-      Person.search_first_name('Miller').should == []
+    it "should find someone by start of first name" do
+      Person.search_first_name_default_match('Eli').should == [@jqr]
+    end
+
+    it "should not find someone by middle of first name" do
+      Person.search_first_name_default_match('lija').should == []
+    end
+
+    it "should not find someone by end of first name" do
+      Person.search_first_name_default_match('jah').should == []
     end
   end
   
+  describe "single column search exact match" do
+    it "should find someone by exact first name" do
+      Person.search_first_name_exact('Elijah').should == [@jqr]
+    end
+
+    it "should not find someone by start of first name" do
+      Person.search_first_name_exact('Eli').should == []
+    end
+
+    it "should not find someone by middle of first name" do
+      Person.search_first_name_exact('lija').should == []
+    end
+
+    it "should not find someone by end of first name" do
+      Person.search_first_name_exact('jah').should == []
+    end
+  end
+
+  describe "single column search start match" do
+    it "should find someone by exact first name" do
+      Person.search_first_name_start('Elijah').should == [@jqr]
+    end
+
+    it "should find someone by start of first name" do
+      Person.search_first_name_start('Eli').should == [@jqr]
+    end
+
+    it "should not find someone by middle of first name" do
+      Person.search_first_name_start('lija').should == []
+    end
+
+    it "should not find someone by end of first name" do
+      Person.search_first_name_start('jah').should == []
+    end
+  end
+
+  describe "single column search middle match" do
+    it "should find someone by exact first name" do
+      Person.search_first_name_middle('Elijah').should == [@jqr]
+    end
+
+    it "should find someone by start of first name" do
+      Person.search_first_name_middle('Eli').should == [@jqr]
+    end
+
+    it "should find someone by middle of first name" do
+      Person.search_first_name_middle('lija').should == [@jqr]
+    end
+
+    it "should find someone by end of first name" do
+      Person.search_first_name_middle('jah').should == [@jqr]
+    end
+  end
+
+  describe "single column search end match" do
+    it "should find someone by exact first name" do
+      Person.search_first_name_end('Elijah').should == [@jqr]
+    end
+
+    it "should not find someone by start of first name" do
+      Person.search_first_name_end('Eli').should == []
+    end
+
+    it "should not find someone by middle of first name" do
+      Person.search_first_name_end('lija').should == []
+    end
+
+    it "should find someone by end of first name" do
+      Person.search_first_name_end('jah').should == [@jqr]
+    end
+  end
+
   describe "multi column search" do
     it "should find someone by first name" do
       Person.search('Eli').should == [@jqr]
