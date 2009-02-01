@@ -3,7 +3,7 @@ require 'spec/rake/spectask'
 require 'echoe'
 Echoe.new 'simple_column_search' do |p|
   p.description     = "Quick and dirty multi column LIKE searches."
-  # p.url             = "http://has_one_autocreate.rubyforge.org"
+  p.url             = "http://github.com/jqr/simple_column_search"
   p.author          = "Elijah Miller"
   p.email           = "elijah.miller@gmail.com"
   p.retain_gemspec  = true

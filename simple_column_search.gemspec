@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["CHANGELOG", "lib/simple_column_search.rb", "README.rdoc"]
   s.files = ["CHANGELOG", "init.rb", "lib/simple_column_search.rb", "Manifest", "Rakefile", "README.rdoc", "spec/models.rb", "spec/spec_helper.rb", "simple_column_search.gemspec"]
   s.has_rdoc = true
-  s.homepage = %q{}
+  s.homepage = %q{http://github.com/jqr/simple_column_search}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Simple_column_search", "--main", "README.rdoc"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{simple_column_search}
