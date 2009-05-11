@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{simple_column_search}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Elijah Miller"]
-  s.date = %q{2009-02-01}
+  s.date = %q{2009-05-11}
   s.description = %q{Quick and dirty multi column LIKE searches.}
   s.email = %q{elijah.miller@gmail.com}
   s.extra_rdoc_files = ["CHANGELOG", "lib/simple_column_search.rb", "README.rdoc"]
@@ -24,11 +24,8 @@ Gem::Specification.new do |s|
     s.specification_version = 2
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<echoe>, [">= 0"])
     else
-      s.add_dependency(%q<echoe>, [">= 0"])
     end
   else
-    s.add_dependency(%q<echoe>, [">= 0"])
   end
 end
