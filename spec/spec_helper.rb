@@ -1,6 +1,9 @@
 require 'spec'
 require 'fileutils'
 
+
+$: << File.join(File.dirname(__FILE__), '..', 'lib')
+
 require File.join(File.dirname(__FILE__), '..', 'init')
 
 require File.join(File.dirname(__FILE__), 'models')
