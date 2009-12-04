@@ -31,10 +31,10 @@ As a Rails plugin.
 
 Prefer gems? Add this to your environment.rb and run the following command.
 
-  config.gem 'simple_column_search', :source => 'http://gemcutter.org'
+  config.gem 'simple_column_search'
 
   $ rake gems:install
 
 
-Homepage:: http://github.com/jqr/simple_column_search/tree/master  
+Homepage:: http://github.com/jqr/simple_column_search
 License:: Copyright (c) 2008 Elijah Miller <mailto:elijah.miller@gmail.com>, released under the MIT license.
