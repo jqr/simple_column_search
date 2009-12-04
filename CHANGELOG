@@ -1,3 +1,5 @@
+v1.0.0. PostgreSQL support, Rit Li [rit]
+
 v0.1.2. Fixed initialization when used as a plugin.
 
 v0.1.1. Version bump to trigger a GitHub rebuild.
