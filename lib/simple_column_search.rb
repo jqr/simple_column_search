@@ -20,6 +20,9 @@ module SimpleColumnSearch
 
     options[:match] ||= :start
     options[:name] ||= 'search'
+
+    # PostgreSQL LIKE is case-sensitive, use ILIKE for case-insensitive
+    like_or_ilike = ::ActiveRecord::Base.connection.adapter_name == "PostgreSQL" ? "ILIKE" : "LIKE"
     
     named_scope options[:name], lambda { |terms|
       conditions = terms.split.inject(nil) do |acc, term|
@@ -36,7 +39,7 @@ module SimpleColumnSearch
           else
             raise "Unexpected match type: #{options[:match]}"
           end
-        merge_conditions  acc, [columns.collect { |column| "#{table_name}.#{column} LIKE :pattern" }.join(' OR '), { :pattern => pattern }]
+        merge_conditions  acc, [columns.collect { |column| "#{table_name}.#{column} #{like_or_ilike} :pattern" }.join(' OR '), { :pattern => pattern }]
       end
     
       { :conditions => conditions }
