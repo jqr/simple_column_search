@@ -35,6 +35,9 @@ Prefer gems? Add this to your environment.rb and run the following command.
 
   $ rake gems:install
 
+== Docs
+
+http://rdoc.info/projects/jqr/simple_column_search
 
 Homepage:: http://github.com/jqr/simple_column_search
 License:: Copyright (c) 2008 Elijah Miller <mailto:elijah.miller@gmail.com>, released under the MIT license.
