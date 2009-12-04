@@ -6,8 +6,6 @@ $: << File.join(File.dirname(__FILE__), '..', 'lib')
 
 require File.join(File.dirname(__FILE__), '..', 'init')
 
-require File.join(File.dirname(__FILE__), 'models')
-
 TEST_DATABASE_FILE = File.join(File.dirname(__FILE__), 'test.sqlite3')
 
 Spec::Runner.configure do |config|
@@ -34,3 +32,5 @@ def create_tables
 end
 
 setup_database
+
+require File.join(File.dirname(__FILE__), 'models')
