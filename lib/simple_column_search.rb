@@ -1,5 +1,5 @@
-require 'rubygems'
-require 'activerecord'
+#require 'rubygems'
+#require 'activerecord'
 
 module SimpleColumnSearch
   # Adds a Model.search('term1 term2') method that searches across SEARCH_COLUMNS
