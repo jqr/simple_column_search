@@ -1,5 +1,5 @@
-#require 'rubygems'
-#require 'activerecord'
+require 'rubygems'
+require 'active_record'
 
 module SimpleColumnSearch
   # Adds a Model.search('term1 term2') method that searches across SEARCH_COLUMNS
@@ -24,8 +24,9 @@ module SimpleColumnSearch
     # PostgreSQL LIKE is case-sensitive, use ILIKE for case-insensitive
     like = connection.adapter_name == "PostgreSQL" ? "ILIKE" : "LIKE"
     
-    named_scope options[:name], lambda { |terms|
+    scope options[:name], lambda { |terms|
       conditions = terms.split.inject(nil) do |acc, term|
+        acc = [] if acc.nil?
         pattern = 
           case(options[:match])
           when :exact
@@ -39,10 +40,13 @@ module SimpleColumnSearch
           else
             raise "Unexpected match type: #{options[:match]}"
           end
-        merge_conditions  acc, [columns.collect { |column| "#{table_name}.#{column} #{like} :pattern" }.join(' OR '), { :pattern => pattern }]
+        acc << columns.collect { |column| "#{table_name}.#{column} #{like} '#{pattern}'" }  
+        
+        #merge_conditions  acc, [columns.collect { |column| "#{table_name}.#{column} #{like} :pattern" }.join(' OR '), { :pattern => pattern }]
       end
-    
-      { :conditions => conditions }
+      
+      where conditions.map { |c| "(" + c.join(' or ') + ")" }.join(' and ')
+      #where x
     }
   end
   
