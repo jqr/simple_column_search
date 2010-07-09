@@ -23,31 +23,43 @@ module SimpleColumnSearch
 
     # PostgreSQL LIKE is case-sensitive, use ILIKE for case-insensitive
     like = connection.adapter_name == "PostgreSQL" ? "ILIKE" : "LIKE"
-    
-    scope options[:name], lambda { |terms|
-      conditions = terms.split.inject(nil) do |acc, term|
-        acc = [] if acc.nil?
-        pattern = 
-          case(options[:match])
-          when :exact
-            term
-          when :start
-            term + '%'
-          when :middle
-            '%' + term + '%'
-          when :end
-            '%' + term
-          else
-            raise "Unexpected match type: #{options[:match]}"
-          end
-        acc << columns.collect { |column| "#{table_name}.#{column} #{like} '#{pattern}'" }  
+    # Determin if ActiveRecord 3 or ActiveRecord 2.3 - probaly beter way to do it!
+    if self.methods.include?("where") 
+      scope options[:name], lambda { |terms|
+        conditions = terms.split.inject([]) do |acc, term|
+          pattern = get_simple_column_pattern options[:match], term
+          acc << columns.collect { |column| "#{table_name}.#{column} #{like} '#{pattern}'" }  
         
-        #merge_conditions  acc, [columns.collect { |column| "#{table_name}.#{column} #{like} :pattern" }.join(' OR '), { :pattern => pattern }]
-      end
+        end
       
-      where conditions.map { |c| "(" + c.join(' or ') + ")" }.join(' and ')
-      #where x
-    }
+        where conditions.map { |c| "(" + c.join(' or ') + ")" }.join(' and ')
+      } 
+    else
+      named_scope options[:name], lambda { |terms|
+        conditions = terms.split.inject(nil) do |acc, term|
+          pattern = get_simple_column_pattern options[:match], term
+          merge_conditions  acc, [columns.collect { |column| "#{table_name}.#{column} #{like} :pattern" }.join(' OR '), { :pattern => pattern }]        
+        end
+        { :conditions => conditions }
+      }     
+    end
+    
   end
+  
+  def get_simple_column_pattern(match, term)
+    case(match)
+    when :exact
+      term
+    when :start
+      term + '%'
+    when :middle
+      '%' + term + '%'
+    when :end
+      '%' + term
+    else
+      raise "Unexpected match type: #{options[:match]}"
+    end    
+  end
+  
   
 end
