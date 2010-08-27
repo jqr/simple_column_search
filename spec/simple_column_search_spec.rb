@@ -12,6 +12,12 @@ describe SimpleColumnSearch do
     @users = [@jqr, @iggzero, @mogis, @shakewell]
   end
 
+  it "should not allow SQL injection" do
+    Person.search(%q{'}).should == []
+    Person.search(%q{"}).should == []
+    Person.search(%q{`}).should == []
+  end
+
   describe "single column search default match" do
     it "should find someone by exact first name" do
       Person.search_first_name_default_match('Elijah').should == [@jqr]
