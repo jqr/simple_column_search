@@ -26,13 +26,10 @@ module SimpleColumnSearch
     # Determin if ActiveRecord 3 or ActiveRecord 2.3 - probaly beter way to do it!
     if self.respond_to?(:where)
       scope options[:name], lambda { |terms|
-        conditions = terms.split.inject([]) do |acc, term|
+        conditions = terms.split.inject(where(nil)) do |acc, term|
           pattern = get_simple_column_pattern options[:match], term
-          acc << columns.collect { |column| "#{table_name}.#{column} #{like} '#{pattern}'" }
-
+          acc.where(columns.collect { |column| "#{table_name}.#{column} #{like} :pattern" }.join(' OR '), { :pattern => pattern })
         end
-
-        where conditions.map { |c| "(" + c.join(' or ') + ")" }.join(' and ')
       }
     else
       named_scope options[:name], lambda { |terms|
