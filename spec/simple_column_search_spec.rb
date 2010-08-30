@@ -13,9 +13,7 @@ describe SimpleColumnSearch do
   end
 
   it "should not allow SQL injection" do
-    Person.search(%q{'}).should == []
-    Person.search(%q{"}).should == []
-    Person.search(%q{`}).should == []
+    Person.search(%q{'"`}).should == []
   end
 
   describe "single column search default match" do
