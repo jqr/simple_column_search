@@ -1,3 +1,5 @@
+v1.0.2. Fixed SQL injection on Rails 3, and Rails 3 compatibility on Ruby 1.9.2.
+
 v1.0.1. Rails 3 compatibility, thanks Tom Wilson [twilson63]
 
 v1.0.0. PostgreSQL support, Rit Li [rit]
