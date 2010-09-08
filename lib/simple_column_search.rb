@@ -60,3 +60,5 @@ module SimpleColumnSearch
 
 
 end
+
+ActiveRecord::Base.extend(SimpleColumnSearch)
