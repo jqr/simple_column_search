@@ -1,3 +1,5 @@
+v1.0.4. Spew an appropriate error on invalid match type.
+
 v1.0.3. General Ruby and Rails 3 compatibility.
 
 v1.0.2. Fixed SQL injection on Rails 3, and Rails 3 compatibility on Ruby 1.9.2.
