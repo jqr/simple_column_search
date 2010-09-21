@@ -16,6 +16,12 @@ describe SimpleColumnSearch do
     Person.search(%q{'"`}).should == []
   end
 
+  it "should get an error when the match type is unrecognized" do
+    lambda {
+      Person.simple_column_search :first_name, :name => :bad_match_type, :match => :typo_city
+    }.should raise_error(SimpleColumnSearch::InvalidMatcher)
+  end
+
   describe "single column search default match" do
     it "should find someone by exact first name" do
       Person.search_first_name_default_match('Elijah').should == [@jqr]

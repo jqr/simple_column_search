@@ -21,6 +21,9 @@ module SimpleColumnSearch
     options[:match] ||= :start
     options[:name] ||= 'search'
 
+    # Test options at create time
+    get_simple_column_pattern(options[:match], 'test')
+
     # PostgreSQL LIKE is case-sensitive, use ILIKE for case-insensitive
     like = connection.adapter_name == "PostgreSQL" ? "ILIKE" : "LIKE"
     # Determine if ActiveRecord 3 or ActiveRecord 2.3 - probaly beter way to do it!
@@ -54,10 +57,11 @@ module SimpleColumnSearch
     when :end
       '%' + term
     else
-      raise "Unexpected match type: #{options[:match]}"
+      raise InvalidMatcher, "Unexpected match type: #{match}"
     end
   end
 
+  class InvalidMatcher < StandardError; end
 
 end
 
