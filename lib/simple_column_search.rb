@@ -26,8 +26,8 @@ module SimpleColumnSearch
 
     # PostgreSQL LIKE is case-sensitive, use ILIKE for case-insensitive
     like = connection.adapter_name == "PostgreSQL" ? "ILIKE" : "LIKE"
-    # Determine if ActiveRecord 3 or ActiveRecord 2.3 - probaly beter way to do it!
-    if self.respond_to?(:where)
+    # Determine if ActiveRecord 3
+    if ActiveRecord::VERSION::MAJOR == 3
       scope options[:name], lambda { |terms|
         conditions = terms.split.inject(where(nil)) do |acc, term|
           pattern = get_simple_column_pattern options[:match], term
