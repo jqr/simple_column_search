@@ -23,7 +23,7 @@ module SimpleColumnSearch
     options[:match] ||= :start
     options[:name] ||= 'search'
 
-    unless options[:match].is_a?(Proc) || [ :start, :middle, :end, :exact ].include?(options[:match])
+    unless options[:match].respond_to?(:call) || [ :start, :middle, :end, :exact ].include?(options[:match])
       raise InvalidMatcher, "Unexpected match type: #{options[:match].inspect}"
     end
 
@@ -53,7 +53,7 @@ module SimpleColumnSearch
   private
   def build_simple_column_patterns(columns, match, term)
     columns.map do |column|
-      get_simple_column_pattern(match.is_a?(Proc) ? match.call(column) : match, term)
+      get_simple_column_pattern(match.respond_to?(:call) ? match.call(column) : match, term)
     end
   end
 
