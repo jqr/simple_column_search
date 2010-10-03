@@ -51,6 +51,7 @@ module SimpleColumnSearch
   end
 
   private
+
   def build_simple_column_patterns(columns, match, term)
     columns.map do |column|
       get_simple_column_pattern(match.respond_to?(:call) ? match.call(column) : match, term)
