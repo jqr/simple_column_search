@@ -146,10 +146,11 @@ describe SimpleColumnSearch do
 
   describe "query escaping" do
     it "should escape the query string when asked so" do
-      Person.search_escape_query("\tmiler\n").should == [@jqr, @shakewell]
+      Person.search_escape_query("\tmillers\n").should == [@jqr, @shakewell]
     end
+
     it "should fail without escaping" do
-      Person.search("\tmiler\n").should == []
+      Person.search("\tmillers\n").should == []
     end
   end
 
