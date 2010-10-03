@@ -1,3 +1,5 @@
+v1.1.0. Support for lambdas on :match and :escape.
+
 v1.0.4. Spew an appropriate error on invalid match type.
 
 v1.0.3. General Ruby and Rails 3 compatibility.
